@@ -188,9 +188,18 @@ getCharacterName() {
   return name;
 } //캐릭터 이름 입력
 
+void tryHeal(Character character) {
+  Random random = Random(DateTime.now().millisecondsSinceEpoch);
+  if (random.nextInt(100) < 30) {
+    character.health += 10;
+    print('💊보너스 체력 +10 을 얻었습니다! 현재 체력: ${character.health}');
+  }
+} //캐릭터
+
 Future<void> main() async {
   String name = getCharacterName();
   Character character = await loadCharacterStats(name);
+  tryHeal(character);
   List<Monster> monsters = await loadMonsterStats(character.defense);
   Game game = Game(character, monsters, 1);
   print('게임을 시작합니다!');
